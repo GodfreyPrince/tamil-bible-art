@@ -1,6 +1,6 @@
 # Tamil Bible Art Index (தமிழ் பைபிள் கலைப் படங்கள்)
 
-A curated, scripture-linked index of **2,077 public-domain Biblical artworks + 228 Biblical maps** with
+A curated, scripture-linked index of **2,077 public-domain Biblical artworks + 228 Biblical maps** (all human-reviewed) with
 Tamil titles and descriptions, built for the **தமிழ் பைபிள் (Tamil Bible)** Android app.
 
 - **Source dataset:** [jaedenschafer/bible-art-scripture-index](https://github.com/jaedenschafer/bible-art-scripture-index) (CC0)
@@ -31,3 +31,7 @@ device; otherwise images live in a private cache only.
 Artwork metadata and selection logic: CC0. Each image keeps its original rights
 (`rights_code` in the manifest: PDM-1.0, CC0, CC-BY, etc.) — all are open-license or
 public domain as recorded by the source institutions.
+
+
+Companion app: **தமிழ் பைபிள் (Tamil Bible)** Android app with three Tamil Bible texts
+(பழைய BSI classic, திருவிவிலியம் 2012, IRV) and a chapter-reading tracker.

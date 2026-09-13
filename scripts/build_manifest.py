@@ -119,6 +119,16 @@ BOOK_TA = {
     "1 John":"1 யோவான்","2 John":"2 யோவான்","3 John":"3 யோவான்","Jude":"யூதா","Revelation":"வெளிப்படுத்துதல்",
 }
 
+BOOK_IDX = {n: i for i, n in enumerate([
+    "Genesis","Exodus","Leviticus","Numbers","Deuteronomy","Joshua","Judges","Ruth","1 Samuel",
+    "2 Samuel","1 Kings","2 Kings","1 Chronicles","2 Chronicles","Ezra","Nehemiah","Esther","Job",
+    "Psalms","Proverbs","Ecclesiastes","Song of Solomon","Isaiah","Jeremiah","Lamentations",
+    "Ezekiel","Daniel","Hosea","Joel","Amos","Obadiah","Jonah","Micah","Nahum","Habakkuk",
+    "Zephaniah","Haggai","Zechariah","Malachi","Matthew","Mark","Luke","John","Acts","Romans",
+    "1 Corinthians","2 Corinthians","Galatians","Ephesians","Philippians","Colossians",
+    "1 Thessalonians","2 Thessalonians","1 Timothy","2 Timothy","Titus","Philemon","Hebrews",
+    "James","1 Peter","2 Peter","1 John","2 John","3 John","Jude","Revelation"])}
+
 ERA_TA = {"renaissance":"மறுமலர்ச்சி","baroque":"பரோக்","medieval":"இடைக்கால","gothic":"கோதிக்",
           "northern-renaissance":"வடக்கு மறுமலர்ச்சி","printmaking":"அச்சுக்கலை","drawing":"வரைபடம்",
           "manuscript":"கையெழுத்து","sculpture":"சிற்பம்","modern":"நவீன","19th century":"19ஆம் நூற்றாண்டு"}
@@ -185,17 +195,25 @@ def main():
         ta_title, ta_desc = (sc[0], sc[1]) if sc else (a["title"], None)
         refs = []
         for m in e["maps"]:
-            refs.append({"book": m["b"], "ch": m["c"],
+            bi = BOOK_IDX.get(m["b"])
+            if bi is None:
+                continue
+            refs.append({"book": bi, "ch": m["c"],
                          "ta_book": BOOK_TA.get(m["b"], m["b"]),
                          "ref": m["ref"], "rel": m["rel"]})
         ta_desc_full = ta_desc or ""
         if refs and ta_desc_full:
-            ta_desc_full += " — " + BOOK_TA.get(refs[0]["book"], refs[0]["book"]) + " " + str(refs[0]["ch"])
+            ta_desc_full += " — " + refs[0]["ta_book"] + " " + str(refs[0]["ch"])
+        yr = a.get("year")
+        try:
+            yr = int(str(yr)[:4])
+        except Exception:
+            yr = None
         entries.append({
             "id": slug,
             "title": a["title"],
             "artist": a["artist_name"],
-            "year": a.get("year"),
+            "year": yr,
             "era": a.get("era"),
             "license": a.get("rights_code"),
             "source": a.get("source"),
